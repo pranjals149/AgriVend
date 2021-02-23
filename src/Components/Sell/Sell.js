@@ -11,7 +11,19 @@ const options = [
     'Paddy', 'Jowar', 'Bajra', 'Potato', 'Maize', 'Tomato', 'Moong', 'Urad'
 ];
 
-const defaultOption = options[0];
+var mp = {};
+mp['Paddy'] = 18.68
+mp['Jowar'] = 26.20
+mp['Bajra'] = 21.50
+mp['Potato'] = 24
+mp['Maize'] = 18.5
+mp['Tomato'] = 16.5
+mp['Moong'] = 71.96
+mp['Urad'] = 60.3
+
+var farPrice = {}
+
+const defaultOption = 'Paddy';
 
 const Sell = () => {
 
@@ -24,54 +36,21 @@ const Sell = () => {
     const [crop, setCrop] = React.useState(null);
     const [contact, setContact] = React.useState(null);
 
+    farPrice[crop] = price;
+
     const msp = (e) => {
         setPrice(e.target.value)
     }
 
     const validate = (e) => {
         e.preventDefault();
-        if (crop === 'Paddy' && price < 18.68) {
+
+        if(farPrice[crop] < mp[crop]){
             alert("Price cannot be less than MSP")
             return false;
         }
 
-        else if (crop === 'Jowar' && price < 26.20) {
-            alert("Price cannot be less than MSP")
-            return false;
-        }
-
-        else if (crop === 'Bajra' && price < 21.50) {
-            alert("Price cannot be less than MSP")
-            return false;
-        }
-
-        else if (crop === 'Potato' && price < 24) {
-            alert("Price cannot be less than MSP")
-            return false;
-        }
-
-        else if (crop === 'Maize' && price < 18.50) {
-            alert("Price cannot be less than MSP")
-            return false;
-        }
-
-        else if (crop === 'Tomato' && price < 16.5) {
-            alert("Price cannot be less than MSP")
-            return false;
-        }
-
-        else if (crop === 'Moong' && price < 71.96) {
-            alert("Price cannot be less than MSP")
-            return false;
-        }
-
-        else if (crop === 'Urad' && price < 60.3) {
-            alert("Price cannot be less than MSP")
-            return false;
-        }
-
-        else if (crop !== 'Paddy' && crop !== 'Jowar' && crop !== 'Bajra' && crop !== 'Potato' && crop !== 'Maize' && crop !== 'Tomato' && crop !== 'Moong' && crop !== 'Urad') {
-            // document.querySelector('input').disabled = true;
+        else if(!(crop in mp)){
             alert('Please enter the crop mentioned in the list of Available Crops')
         }
 
@@ -80,7 +59,6 @@ const Sell = () => {
         else {
             alert("Your Price is above the MSP !! Good to Go 😀	")
             document.querySelector('.sell__submit').disabled = false;
-
         }
     }
 
@@ -107,7 +85,6 @@ const Sell = () => {
 
     return (
         <div className='sell'>
-
 
             <h1>Sell Crops</h1>
 
